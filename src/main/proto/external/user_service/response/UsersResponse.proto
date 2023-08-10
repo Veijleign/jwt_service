@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option java_package = "ru.microservices.proto";
+option java_multiple_files = true;
+
+import "external/user_service/model/UserModel.proto";
+
+message UsersResponse{
+  repeated UserModel users = 1;
+}
