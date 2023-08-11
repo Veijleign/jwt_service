@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
-import ru.microservices.jwt_service.core.config.external.user_service.UserService;
+import ru.microservices.jwt_service.core.config.user_service.UserService;
 import ru.microservices.jwt_service.core.exception.ExtendedError;
 import ru.microservices.jwt_service.core.exception.ExtendedException;
 import ru.microservices.jwt_service.domain.entity.ETokenType;

@@ -1,4 +1,4 @@
-package ru.microservices.jwt_service.core.config.external.user_service;
+package ru.microservices.jwt_service.core.config.user_service;
 
 import io.grpc.Channel;
 import io.grpc.ManagedChannelBuilder;

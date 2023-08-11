@@ -1,4 +1,4 @@
-package ru.microservices.jwt_service.core.config.external.user_service;
+package ru.microservices.jwt_service.core.config.user_service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
