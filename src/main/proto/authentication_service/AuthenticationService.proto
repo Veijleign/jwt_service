@@ -1,0 +1,33 @@
+syntax = "proto3";
+package ru.microservices.authentication_service;
+option java_multiple_files = true;
+
+// COMMON
+import "google/protobuf/empty.proto";
+
+// REQUESTS
+import "authentication_service/request/SignInRequest.proto";
+import "authentication_service/request/SignUpRequest.proto";
+import "authentication_service/request/TokenRequest.proto";
+
+// RESPONSES
+import "authentication_service/response/TokenResponse.proto";
+import "authentication_service/response/ValidateTokenResponse.proto";
+
+
+service AuthenticationService{
+  rpc signIn(SignInRequest) returns (TokenResponse) {
+  }
+
+  rpc signUp(SignUpRequest) returns (google.protobuf.Empty){
+  }
+
+  rpc logout(google.protobuf.Empty) returns(google.protobuf.Empty){
+  }
+
+  rpc refreshToken(TokenRequest) returns (TokenResponse) {
+  }
+  
+  rpc validateToken(TokenRequest) returns (ValidateTokenResponse) {
+  }
+}

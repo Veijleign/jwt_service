@@ -1,0 +1,7 @@
+syntax = "proto3";
+package ru.microservices.user_service;
+option java_multiple_files = true;
+
+message UserUsernameRequest {
+  string username = 1;
+}

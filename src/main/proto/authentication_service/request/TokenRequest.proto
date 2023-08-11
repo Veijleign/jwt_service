@@ -1,0 +1,7 @@
+syntax = "proto3";
+package ru.microservices.authentication_service;
+option java_multiple_files = true;
+
+message TokenRequest{
+  string token = 1;
+}

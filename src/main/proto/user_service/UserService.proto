@@ -1,0 +1,35 @@
+syntax = "proto3";
+package ru.microservices.user_service;
+option java_multiple_files = true;
+
+// COMMON
+import "google/protobuf/empty.proto";
+
+// REQUESTS
+import "user_service/request/UserIdMultipleRequest.proto";
+import "user_service/request/UserIdRequest.proto";
+import "user_service/request/UserUsernameRequest.proto";
+import "user_service/request/CreateUserRequest.proto";
+import "user_service/request/ValidateUserRequest.proto";
+
+// RESPONSES
+import "user_service/response/UserMultipleResponse.proto";
+import "user_service/response/UserResponse.proto";
+import "user_service/response/ValidateUserResponse.proto";
+
+service UserService{
+
+  rpc create(CreateUserRequest) returns (UserResponse) {
+  }
+  rpc getById(UserIdRequest) returns (UserResponse){
+  }
+  rpc getByIds(UserIdMultipleRequest) returns (UserMultipleResponse) {
+  }
+  rpc getAllUser(google.protobuf.Empty) returns(UserMultipleResponse){
+  }
+  rpc validateUser(ValidateUserRequest) returns (ValidateUserResponse){
+  }
+  rpc getUserByUsername(UserUsernameRequest) returns (UserResponse) {
+  }
+}
+

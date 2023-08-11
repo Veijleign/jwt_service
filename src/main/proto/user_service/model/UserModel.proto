@@ -1,0 +1,12 @@
+syntax = "proto3";
+package ru.microservices.user_service;
+option java_multiple_files = true;
+
+import "user_service/model/RoleModel.proto";
+
+
+message UserModel{
+  int64 id = 1;
+  string username = 2;
+  repeated RoleModel roles = 3;
+}

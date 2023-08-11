@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-option java_package = "ru.microservices.proto";
-option java_multiple_files = true;
-
-
-message GetUserByIdsRequest{
-  repeated int64 id = 1;
-}

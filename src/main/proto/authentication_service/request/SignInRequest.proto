@@ -1,0 +1,8 @@
+syntax = "proto3";
+package ru.microservices.authentication_service;
+option java_multiple_files = true;
+
+message SignInRequest{
+  string username = 1;
+  string password = 2;
+}
