@@ -5,9 +5,9 @@ spring:
 
 # DATABASE CONFIG
   datasource:
-    url: jdbc:postgresql://localhost:5432/token_db
+    url: jdbc:postgresql://localhost:5432/authentication_service
     username: postgres
-    password: admin
+    password: test
   jpa:
     hibernate:
       ddl-auto: validate
@@ -18,9 +18,9 @@ spring:
 
   liquibase:
     enabled: true
-    url: jdbc:postgresql://localhost:5432/token_db
+    url: jdbc:postgresql://localhost:5432/authentication_service
     user: postgres
-    password: admin
+    password: test
     default-schema: public
 
 
@@ -42,6 +42,7 @@ grpc:
   security:
     auth:
       enabled: true
+      fail-fast: false
   enable-reflection: true
   client:
     user-service:
