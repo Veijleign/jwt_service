@@ -10,8 +10,9 @@ import ru.microservices.jwt_service.domain.mapper.TokenMapper;
 import ru.microservices.jwt_service.domain.service.AuthenticationService;
 import ru.microservices.jwt_service.util.StreamObserverUtils;
 
-@GRpcService
+
 @Slf4j
+@GRpcService
 @RequiredArgsConstructor
 public class AuthenticationGrpc extends AuthenticationServiceGrpc.AuthenticationServiceImplBase {
 
