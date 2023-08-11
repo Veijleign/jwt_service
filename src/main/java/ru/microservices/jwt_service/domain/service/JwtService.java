@@ -7,6 +7,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.microservices.jwt_service.core.config.CommonConfig;
 import ru.microservices.jwt_service.core.config.JwtConfig;
 import ru.microservices.jwt_service.domain.payload.UserDTO;
 
@@ -20,14 +21,15 @@ import java.util.function.Function;
 @Service
 @RequiredArgsConstructor
 public class JwtService {
-    private JwtConfig config;
+    private JwtConfig jwtConfig;
+    private CommonConfig commonConfig;
 
     private Key getSignKey() {
         return Keys.hmacShaKeyFor(
                 Decoders
                         .BASE64
                         .decode(
-                                config.getKey()
+                                commonConfig.getKey()
                         )
         );
     }
@@ -84,7 +86,7 @@ public class JwtService {
                         dto.getId()
                 ),
                 dto,
-                config.getAccessExpiration()
+                jwtConfig.getAccessExpiration()
         );
     }
 
@@ -96,7 +98,7 @@ public class JwtService {
         return buildToken(
                 new HashMap<>(),
                 dto,
-                config.getRefreshExpiration()
+                jwtConfig.getRefreshExpiration()
         );
     }
 

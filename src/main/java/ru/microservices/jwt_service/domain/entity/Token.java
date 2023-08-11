@@ -13,10 +13,9 @@ import java.util.UUID;
 @Entity
 @Table(name = "token")
 public class Token {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    public UUID id;
+    public UUID id = UUID.randomUUID();
 
     @Column(unique = true, nullable = false)
     public String token;

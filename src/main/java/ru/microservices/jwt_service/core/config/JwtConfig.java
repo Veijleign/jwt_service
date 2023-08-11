@@ -15,23 +15,10 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 @Configuration
 public class JwtConfig {
 
-    @Value("${jwt.key}")
-    private String key;
-
     @Value("${jwt.access-expiration}")
     private Long accessExpiration;
 
     @Value("${jwt.refresh-expiration}")
     private Long refreshExpiration;
 
-    @Bean
-    public JwtDecoder jwtDecoder() {
-        byte[] decode = Decoders.BASE64.decode(key);
-
-        log.info("Jwt decoder initialized");
-
-        return NimbusJwtDecoder.withSecretKey(
-                Keys.hmacShaKeyFor(decode)
-        ).build();
-    }
 }

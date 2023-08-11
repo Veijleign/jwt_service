@@ -1,92 +1,41 @@
 databaseChangeLog:
   - changeSet:
       id: 10-08-2023-init-tables
-      author: D3FIX4M
+      author: Veijleign
       changes:
-        - createSequence:
-            sequenceName: user_sequence
-            incrementBy: 1
-            startValue: 5
-            maxValue: 9223372036854775807
-            cycle: false
-
-        - createSequence:
-            sequenceName: role_sequence
-            incrementBy: 1
-            startValue: 3
-            maxValue: 9223372036854775807
-            cycle: false
-
         - createTable:
-            tableName: users
+            tableName: token
             columns:
               - column:
                   name: id
-                  type: bigint
-                  defaultValueComputed: "nextval('user_sequence')"
+                  type: UUID
                   constraints:
                     primaryKey: true
                     unique: true
                     nullable: false
               - column:
-                  name: username
+                  name: token
                   type: text
                   constraints:
                     nullable: false
                     unique: true
               - column:
-                  name: password
-                  type: text
-                  constraints:
-                    nullable: false
-
-        - createTable:
-            tableName: roles
-            columns:
-              - column:
-                  name: id
-                  type: bigint
-                  defaultValueComputed: "nextval('role_sequence')"
-                  constraints:
-                    primaryKey: true
-                    unique: true
-                    nullable: false
-              - column:
-                  name: key
+                  name: token_type
                   type: TEXT
                   constraints:
                     nullable: false
-
-        - createTable:
-            tableName: user_roles
-            columns:
               - column:
                   name: user_id
                   type: bigint
                   constraints:
-                    primaryKey: true
                     nullable: false
               - column:
-                  name: role_id
-                  type: bigint
+                  name: is_revoked
+                  type: boolean
                   constraints:
-                    primaryKey: true
                     nullable: false
-
-
-        - addForeignKeyConstraint:
-            baseTableName: user_roles
-            referencedTableName: users
-            baseColumnNames: user_id
-            referencedColumnNames: id
-            constraintName: fkc_user_roles_users
-
-        - addForeignKeyConstraint:
-            baseTableName: user_roles
-            referencedTableName: roles
-            baseColumnNames: role_id
-            referencedColumnNames: id
-            constraintName: fkc_user_roles_roles
-
-
-
+              - column:
+                  name: is_expired
+                  type: boolean
+                  constraints:
+                    nullable: false

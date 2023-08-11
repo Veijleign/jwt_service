@@ -1,3 +1,2 @@
 databaseChangeLog:
   - include: { file: db/changelog/migration/init.yaml }
-  - include: { file: db/changelog/migration/data.yaml }
