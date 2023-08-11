@@ -34,33 +34,11 @@ public class JwtService {
         );
     }
 
-    private Claims extractAllClaims(String token) {
-        return Jwts
-                .parserBuilder()
-                .setSigningKey(getSignKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-    }
-
-    public <T> T extractClaim(
-            String token,
-            Function<Claims, T> claimResolver
-    ) {
-        final Claims claims = extractAllClaims(token);
-        return claimResolver.apply(claims);
-    }
-
-    public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
-    }
-
     private String buildToken(
             Map<String, Object> extraClaims,
             UserDTO dto,
             long expiration
     ) {
-
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
@@ -71,15 +49,26 @@ public class JwtService {
                 .compact();
     }
 
-    public String generateToken(UserDTO dto) {
-        return generateToken(new HashMap<>(), dto);
+    private boolean isTokenExpired(String token) {
+        return extractClaim(token, Claims::getExpiration).before(new Date());
+    }
+
+    private <T> T extractClaim(
+            String token,
+            Function<Claims, T> claimResolver
+    ) {
+        final Claims claims = Jwts
+                .parserBuilder()
+                .setSigningKey(getSignKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        return claimResolver.apply(claims);
     }
 
     public String generateToken(
-            Map<String, Object> extraClaims,
             UserDTO dto
     ) {
-        // TODO userId -> Enum ETokenClaimKey
         return buildToken(
                 Collections.singletonMap(
                         "userId",
@@ -89,9 +78,6 @@ public class JwtService {
                 jwtConfig.getAccessExpiration()
         );
     }
-
-    // TODO Выпилить полиморфизм из generateToken
-
     public String generateRefreshToken(
             UserDTO dto
     ) {
@@ -102,12 +88,8 @@ public class JwtService {
         );
     }
 
-    private Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
-    }
-
-    private boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+    public String extractUsername(String token) {
+        return extractClaim(token, Claims::getSubject);
     }
 
     public boolean isTokenValid(
