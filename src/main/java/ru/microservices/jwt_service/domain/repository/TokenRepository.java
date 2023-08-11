@@ -10,4 +10,6 @@ public interface TokenRepository extends JpaRepositoryImplementation<Token, Long
     List<Token> findAllByIsExpiredAndIsRevokedAndUserId(Boolean isExpired, Boolean isRevoked, Long userId);
 
     Boolean existsTokenByTokenAndTokenType(String token, ETokenType tokenType);
+
+    List<Token> findAllByIsExpiredAndIsRevoked(Boolean isExpired, Boolean isRevoked);
 }

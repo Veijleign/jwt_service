@@ -3,6 +3,8 @@ package ru.microservices.jwt_service.domain.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,8 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@EnableScheduling
+@EnableAsync
 public class AuthenticationService {
 
     private final JwtService jwtService;
@@ -39,11 +43,10 @@ public class AuthenticationService {
                                 password
                         )
                 );
-        log.info("User with username: " + username + "was created");
+        log.info("User with username: " + username + " was created");
     }
 
     public TokenDTO signIn(String username, String password) {
-
         Boolean isValid = userMapper.fromValidateUserResponse(
                 userService.userServiceBlockingStub()
                         .validateUser(
@@ -88,7 +91,7 @@ public class AuthenticationService {
 
         revokeAllUserTokens(userId);
 
-        log.info("User with userID: " + userId + "logout");
+        log.info("User with userID: " + userId + " logout");
     }
 
     public TokenDTO refreshToken(String refreshToken) {
@@ -154,7 +157,7 @@ public class AuthenticationService {
                 .isRevoked(false)
                 .build();
         tokenRepository.save(token);
-        log.info("Access token for userId: " + userId + "was saved");
+        log.info("Access token for userId: " + userId + " was saved");
     }
 
     private void saveUserRefreshToken(
@@ -169,7 +172,7 @@ public class AuthenticationService {
                 .isRevoked(false)
                 .build();
         tokenRepository.save(token);
-        log.info("Refresh token for userId: " + userId + "was saved");
+        log.info("Refresh token for userId: " + userId + " was saved");
     }
 
     private void revokeAllUserTokens(Long userId) {
@@ -190,7 +193,7 @@ public class AuthenticationService {
 
         tokenRepository.saveAll(validUserTokens);
 
-        log.info("Token for userId: " + userId + "was revoked");
+        log.info("Tokens for userId: " + userId + " were revoked");
     }
 
 }
